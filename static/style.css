@@ -1,0 +1,71 @@
+.btn-custom {
+	min-height: 40px;
+	min-width: 60px;
+	margin: 5px;
+	padding: 10px;
+}
+
+.btn-add {
+	border: 1px solid #efefef;
+	colo: black;
+}
+
+.well {
+	background: transparent;
+	border: 0;
+	box-shadow: none;
+}
+
+.btn-add:hover,
+.btn-add:active {
+	text-decoration: none;
+	background: white;
+	border: 1px solid black;
+}
+
+.title {
+	background: #2863a7;
+	color: white;
+}
+
+.header {
+	font-size: 48px;
+}
+
+.profile-image {
+	font-size: 48px;
+}
+
+.restaurant-name {
+	border: 1px solid black;
+	background: white;
+	border-radius: 0;
+
+	color:black;
+
+	cursor: pointer;
+}
+
+.restaurant-name:hover,
+.restaurant-name:active {
+	color: white;
+	text-decoration: none;
+	background: #999;
+}
+
+input[type=text],
+textarea {
+	max-width: 320px;
+}
+
+.item-desc {
+	font-weight: 300;
+}
+
+.menu-name {
+	border: 1px solid black;
+	background: white;
+	border-radius: 0;
+
+	color:black;
+}

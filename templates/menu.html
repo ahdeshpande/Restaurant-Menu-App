@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel=stylesheet
+	href="{{ url_for('static', filename='style.css') }}">
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>
+		{{ restaurant.name }}
+	</title>
+</head>
+
+
+<body>
+
+	<div class="container">
+
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<div class="alert alert-info alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			{{ messages }}
+		</div>
+		{% endif %}
+		{% endwith %}
+
+		<div class="row">
+			<a class="col-xs-3 btn btn-link"
+				href="{{url_for('showRestaurants')}}">
+				<label><span class="glyphicon glyphicon-home">&#32;</span>
+					All Restaurants
+				</label>
+			</a>
+			<a class="col-xs-3 col-xs-offset-6 btn btn-link"
+			href="">
+				<label><span class="glyphicon glyphicon-user">&nbsp;</span>
+					My Account
+				</label>
+			</a>
+		</div>
+		<div class="row jumbotron title">
+			<div class="col-xs-10">
+				<label class="header">{{ restaurant.name }}</label>
+			</div>
+			<div class="col-xs-2">
+				<label class="profile-image"><span class="glyphicon glyphicon-user"></span>
+				</label>
+			</div>
+		</div>
+
+		<div class="row text-center well">
+			<a class="col-xs-2 btn btn-custom btn-default"
+			href="{{ url_for('editRestaurant', restaurant_id=restaurant.id) }}">
+				<label><span class="glyphicon glyphicon-pencil">&nbsp;</span>
+					Edit Restaurant
+				</label>
+			</a>
+			<a class="col-xs-2 btn btn-custom btn-default"
+			href="{{ url_for('newMenuItem', restaurant_id=restaurant.id )}}">
+				<label><span class="glyphicon glyphicon-plus">&nbsp;</span>
+					Add Menu Item
+				</label>
+			</a>
+			<a class="col-xs-2 btn btn-custom btn-danger"
+			href="{{ url_for('deleteRestaurant', restaurant_id=restaurant.id) }}">
+				<label><span class="glyphicon glyphicon-trash">&nbsp;</span>
+					Delete Restaurant
+				</label>
+			</a>
+		</div>
+
+		{% for item in items|sort(attribute='course') %}
+			<div class="row">
+				
+				<div class="col-xs-10 well well-lg menu-name">
+					<div class="row">
+						<div class="col-xs-10">
+							<div class="row">
+								<label><h3>{{ item.name }}</h3><span class="text-primary">{{ item.course }}</span></label>
+							</div>
+							<div class="row">
+								<label class="item-desc"><em>{{ item.description }}</em>
+								</label>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<label><h3>{{ item.price }}</h3></label>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-2 text-center">
+					<div class="row">
+						<a class="btn btn-default btn-custom"
+						href="{{url_for('editMenuItem',restaurant_id=restaurant.id, menu_id=item.id)}}" >
+							Edit
+						</a>
+					</div>
+
+					<div class="row">
+						<a class="btn btn-danger btn-custom"
+						href="{{url_for('deleteMenuItem', restaurant_id=restaurant.id, menu_id=item.id)}}">
+							Delete
+						</a>
+					</div>
+
+				</div>
+			</div>
+		{% endfor %}
+
+	</div>
+
+</body>
+
+
+
+
+</html>

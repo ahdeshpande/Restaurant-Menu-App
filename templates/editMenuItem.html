@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel=stylesheet
+	href="{{ url_for('static', filename='style.css') }}">
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>
+		Edit Menu Item
+	</title>
+</head>
+
+
+<body>
+	<div class="container">
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<div class="alert alert-info alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			{{ messages }}
+		</div>
+		{% endif %}
+		{% endwith %}
+
+		<div class="row jumbotron title">
+			<h1> Edit Menu Item </h1>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-8 well well-lg">
+				<form action="{{ url_for('editMenuItem',restaurant_id = restaurant_id, menu_id=item.id)}}" method = 'post'>
+
+					<div class="form-group">
+						<label for="name">Name:</label>
+						<input type ='text' size='30' name='name' placeholder = '{{item.name }}' value="{{item.name}}"
+						id="name" class="form-control">
+					</div>
+
+					<div class="form-group">
+						<label for="description">Description:</label>
+						<textarea name = 'description' rows='5' cols='40' placeholder = '{{item.description }}'
+						id="description" class="form-control">{{item.description}}</textarea>
+					</div>
+						
+					<div class="form-group">
+						<label for="price">Price:</label>
+						<input type = 'text' size = '8' name='price' placeholder = '{{item.price}}' value="{{item.price}}"
+							id="price" class="form-control">
+					</div>
+						
+						
+					<div class="form-group">
+						<label for="course">Course:</label>
+						<div class="radio">
+							{% if item.course == 'Appetizer' %}
+								<label><input type ='radio' name='course' value='Appetizer' checked >Appetizer</label>
+							{%else%}
+								<label><input type ='radio' name='course' value='Appetizer' >Appetizer</label>
+							{% endif %}
+						</div>
+
+						<div class="radio">
+							{% if item.course == 'Entree' %}
+								<label><input type ='radio' name='course' value='Entree' checked>Entree</label>
+							{%else%}
+								<label><input type ='radio' name='course' value='Entree'>Entree</label>
+							{% endif %}
+						</div>
+
+						<div class="radio">
+							{% if item.course == 'Dessert'%}
+								<label><input type ='radio' name='course' value='Dessert' checked >Dessert</label>
+							{% else %}
+								<label><input type ='radio' name='course' value='Dessert'>Dessert</label>
+							{% endif %}
+						</div>
+
+						<div class="radio">
+							{%if item.course =='Beverage'%}
+								<label><input type ='radio' name='course' value='Beverage' checked >Beverage</label>
+							{% else %}
+								<label><input type ='radio' name='course' value='Beverage'>Beverage</label>
+							{% endif %}
+						</div>
+					</div>
+
+
+
+					<input type='submit' value='Save' class="btn btn-success btn-custom">
+					<a class="btn btn-default btn-custom"
+					href="{{url_for('showMenu', restaurant_id=restaurant_id)}}">
+						Cancel
+					</a>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel=stylesheet
+	href="{{ url_for('static', filename='style.css') }}">
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>
+		Restaurants
+	</title>
+</head>
+
+
+<body>
+	<div class="container">
+
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		<div class="alert alert-info alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			{{ messages[0] }}
+		</div>
+		{% endif %}
+		{% endwith %}
+
+
+		<div class="row">
+			
+			<a class="col-xs-3 col-xs-offset-9 btn btn-link"
+			href="">
+				<label><span class="glyphicon glyphicon-user">&nbsp;</span>
+					My Account
+				</label>
+			</a>
+		</div>
+
+		<div class="row jumbotron title">
+			<div class="col-xs-10">
+				<label class="header">Restaurant List</label>
+			</div>
+		</div>
+
+		<div class="row text-center well">
+			<a class="col-xs-2 btn btn-custom btn-default"
+			href="{{ url_for('newRestaurant') }}">
+				<label><span class="glyphicon glyphicon-cutlery">&nbsp;</span>
+					Add Restaurant
+				</label>
+			</a>
+		</div>
+
+
+		{% for restaurant in restaurants|sort(attribute='name') %}
+			<div class="row">
+				
+				<a class="col-xs-10 well well-lg restaurant-name"
+				href="{{url_for('showMenu', restaurant_id = restaurant.id)}}">
+					<label><h2>{{ restaurant.name }}</h2></label>
+				</a>
+
+				<div class="col-xs-2 text-center">
+					<div class="row">
+						<a class="btn btn-default btn-custom"
+						href="{{url_for('editRestaurant',restaurant_id = restaurant.id)}}" >
+							Edit
+						</a>
+					</div>
+
+					<div class="row">
+						<a class="btn btn-danger btn-custom"
+						href="{{url_for('deleteRestaurant', restaurant_id = restaurant.id)}}">
+							Delete
+						</a>
+					</div>
+
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+</body>
+
+
+
+
+</html>
